@@ -59,6 +59,19 @@ namespace Campus.Navigation
             yield return new WaitForSeconds(1);ScreenCapture.CaptureScreenshot(Path.Combine(output,"follow-arrival.png"));yield return new WaitForSeconds(1);
             app.SetFollowView(false);cameraPassed&=app.mapCamera.orthographic;app.SetFollowView(true);cameraPassed&=!app.mapCamera.orthographic;
             bool ok=app.Arrived&&Mathf.Abs(app.UserPosition.y-3.3f)<.2f&&uiPassed&&errors==0&&cameraPassed&&stairCaptured&&frontEntrance&&!rearDetour;
+            app.mapCamera.GetComponent<CampusFollowCamera>().enabled=false;
+            Object.FindFirstObjectByType<CampusUI>().enabled=false;
+            ui.style.display=DisplayStyle.None;Screen.SetResolution(1000,700,false);
+            app.mapCamera.rect=new Rect(0,0,1,1);
+            foreach(string id in new[]{"A-F1-R1","A-F0-R6","A-F1-OFFICE","A-F2-OFFICE","B-F0-R1"})
+            {
+                var label=app.building.GetComponentsInChildren<Transform>().Single(t=>t.name=="RoomName_"+id+"_D1");
+                float distance=id.EndsWith("-OFFICE")?.55f:1.1f;
+                app.mapCamera.transform.SetPositionAndRotation(label.position-label.forward*distance,label.rotation);
+                yield return new WaitForSeconds(.5f);
+                ScreenCapture.CaptureScreenshot(Path.Combine(output,"nameplate-"+id+".png"));yield return new WaitForSeconds(.5f);
+            }
+            ok&=errors==0;
             File.WriteAllText(Path.Combine(output,"runtime-smoke.txt"),"arrived="+app.Arrived+"\nposition="+app.UserPosition+"\nmode="+app.Mode+"\nsearchFilters="+uiPassed+"\nfollowCamera="+cameraPassed+"\nmaxCameraHeight="+maxCameraHeight+"\nstairCaptured="+stairCaptured+"\nfrontEntrance="+frontEntrance+"\nrearDetour="+rearDetour+"\nruntimeErrors="+errors+"\npassed="+ok);
             Application.logMessageReceived-=CaptureError;
             Application.Quit(ok?0:1);

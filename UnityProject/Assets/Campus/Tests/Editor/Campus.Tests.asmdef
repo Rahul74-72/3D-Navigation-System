@@ -1,6 +1,6 @@
 {
   "name": "Campus.Tests",
-  "references": ["Campus.Runtime", "Campus.Editor"],
+  "references": ["Campus.Runtime", "Campus.Editor", "Unity.TextMeshPro"],
   "includePlatforms": ["Editor"],
   "overrideReferences": true,
   "precompiledReferences": ["zxing.dll", "nunit.framework.dll"],

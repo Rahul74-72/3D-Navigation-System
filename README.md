@@ -9,6 +9,8 @@ The built preview is `Builds/Windows/CampusNavigator.exe`. Keep its companion fo
 
 The ground-office doors are closed to clear the front corridor approach. Building A previews enter from the front instead of circling behind the office. Selecting a ground-floor office ends outside its closed door.
 
+Room names appear on both classroom-door nameplates and on office/lab/library entrance plates. Labels come from the room catalogue; unconfirmed names include a smaller Provisional line. Run scene preparation after renaming rooms in the catalogue.
+
 ## How it works
 1. Search a room or enter `take me to IoT Lab`. Select the building/floor and a result.
 2. Choose a preview starting checkpoint and press **Preview**. The perspective camera follows behind the person, including on stairs. **Map** switches to the optional overhead view; **Follow** returns behind the person. This is a simulation, not phone tracking.

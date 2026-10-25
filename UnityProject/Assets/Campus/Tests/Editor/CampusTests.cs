@@ -9,6 +9,38 @@ using ZXing;
 
 public sealed class CampusTests
 {
+    [Test] public void EveryRoomHasMatchingFittedCorridorNameplates()
+    {
+        var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene(Campus.Editor.CampusBuild.ScenePath,UnityEditor.SceneManagement.OpenSceneMode.Additive);
+        try
+        {
+            var building=scene.GetRootGameObjects().Single(g=>g.name=="Campus_Main_Gates_Model");
+            var labels=building.GetComponentsInChildren<TMPro.TextMeshPro>();
+            Assert.AreEqual(104,labels.Length);
+            var data=JsonUtility.FromJson<CampusData>(AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Campus/Data/campus.json").text);
+            foreach(var room in data.rooms)
+            {
+                for(int door=1;door<=(room.id.EndsWith("-OFFICE")?1:2);door++)
+                {
+                    var text=labels.Single(t=>t.name=="RoomName_"+room.id+"_D"+door);
+                    Assert.AreEqual(Campus.Editor.CampusNameplates.Label(room),text.text);
+                    text.ForceMeshUpdate();Assert.Greater(text.textInfo.characterCount,0);
+                    Assert.LessOrEqual(text.textBounds.size.x,.55f,text.name+" width");
+                    Assert.LessOrEqual(text.textBounds.size.y,.25f,text.name+" height");
+                    var outward=room.id.EndsWith("-OFFICE")?Vector3.forward:room.building=="A"?Vector3.right:Vector3.left;
+                    Assert.Greater(Vector3.Dot(-text.transform.forward,outward),.99f);
+                }
+            }
+            Assert.IsTrue(building.GetComponentsInChildren<Renderer>(true).Where(r=>r.name.StartsWith("ROOM_")&&r.name.EndsWith("_Sign_GLB")).All(r=>!r.gameObject.activeSelf));
+        }
+        finally{UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene,true);}
+    }
+    [TestCase("A-F0-R6",false)] [TestCase("A-F1-OFFICE",false)] [TestCase("A-F2-OFFICE",false)] [TestCase("A-F2-R1",true)] [TestCase("B-F0-R1",true)]
+    public void NameplatesDistinguishProvisionalNames(string id,bool provisional)
+    {
+        var room=CampusData.Provisional().rooms.Single(r=>r.id==id);
+        Assert.AreEqual(provisional,Campus.Editor.CampusNameplates.Label(room).Contains("Provisional"));
+    }
     [TestCase(false)] [TestCase(true)]
     public void BuildingARoutesUseOfficeFrontApproach(bool reverse)
     {
