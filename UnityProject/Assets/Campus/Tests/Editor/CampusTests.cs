@@ -9,6 +9,57 @@ using ZXing;
 
 public sealed class CampusTests
 {
+    [TestCase(false)] [TestCase(true)]
+    public void BuildingARoutesUseOfficeFrontApproach(bool reverse)
+    {
+        var mesh=AssetDatabase.LoadAssetAtPath<NavMeshData>("Assets/Navigation/CampusFirstFloorWalkable.asset");var handle=NavMesh.AddNavMeshData(mesh);
+        try
+        {
+            var data=JsonUtility.FromJson<CampusData>(AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Campus/Data/campus.json").text);
+            foreach(var room in data.rooms.Where(r=>r.building=="A"))
+            {
+                var gate=data.checkpoints[0].position;
+                Assert.IsTrue(CampusRouting.TryRoute(reverse?room.position:gate,reverse?gate:room.position,out var path,out var error),room.id+": "+error);
+                bool front=false;
+                for(float distance=0;distance<=CampusRouting.Length(path.corners)+.1f;distance+=.1f)
+                {
+                    var p=CampusRouting.Ahead(path.corners,distance);
+                    Assert.IsFalse(p.y<1 && p.x<-9.9f && p.z>-15.6f && p.z<-8,room.id+" detours behind office at "+p);
+                    front|=p.y<.2f && p.x>-3.2f && p.x<-1.5f && p.z>-7.85f && p.z<-7;
+                }
+                Assert.IsTrue(front,room.id+" misses the front entrance");
+            }
+        }
+        finally{NavMesh.RemoveNavMeshData(handle);}
+    }
+    [TestCase("A",-2.5f)] [TestCase("B",9.9f)]
+    public void ClosedOfficeDestinationStopsOutsideDoor(string building,float x)
+    {
+        var data=JsonUtility.FromJson<CampusData>(AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Campus/Data/campus.json").text);
+        var room=data.rooms.Single(r=>r.id==building+"-F0-OFFICE");
+        Assert.Less(Vector3.Distance(new Vector3(x,.07f,-7.5f),room.position),.001f);
+        var mesh=AssetDatabase.LoadAssetAtPath<NavMeshData>("Assets/Navigation/CampusFirstFloorWalkable.asset");var handle=NavMesh.AddNavMeshData(mesh);
+        try
+        {
+            Assert.IsTrue(NavMesh.SamplePosition(room.position,out var start,.15f,NavMesh.AllAreas));
+            Assert.IsTrue(NavMesh.Raycast(start.position,new Vector3(x,.01f,-8.7f),out _,NavMesh.AllAreas),"Closed office door must block traversal");
+        }
+        finally{NavMesh.RemoveNavMeshData(handle);}
+    }
+    [Test] public void GroundOfficeDoorsAreClosedInPreparedScene()
+    {
+        var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene(Campus.Editor.CampusBuild.ScenePath,UnityEditor.SceneManagement.OpenSceneMode.Additive);
+        try
+        {
+            var building=scene.GetRootGameObjects().Single(g=>g.name=="Campus_Main_Gates_Model");
+            foreach(string side in new[]{"Original","Duplicate"})
+            {
+                var door=building.GetComponentsInChildren<Renderer>().Single(r=>r.name=="OFFICE_"+side+"_F1_CorridorDoor");
+                Assert.Less(door.bounds.size.z,.06f);Assert.Less(door.bounds.max.z,-7.8f);Assert.NotNull(door.GetComponent<MeshCollider>());
+            }
+        }
+        finally{UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene,true);}
+    }
     [Test] public void FollowCameraStaysBehindPerson(){var p=CampusFollowCamera.DesiredPosition(Vector3.zero,Vector3.forward,2.4f);Assert.Less(p.z,0);Assert.AreEqual(1.5f,p.y,.001);}
     [Test] public void FollowCameraUsesPersonsFloor(){var p=CampusFollowCamera.DesiredPosition(new Vector3(0,6.6f,0),Vector3.right,2.4f);Assert.AreEqual(8.1f,p.y,.001);Assert.Less(p.x,0);}
     [Test] public void FollowCameraIgnoresFacingPitch(){var p=CampusFollowCamera.DesiredPosition(Vector3.zero,new Vector3(0,1,1),2.4f);Assert.AreEqual(1.5f,p.y,.001);Assert.AreEqual(-2.4f,p.z,.001);}

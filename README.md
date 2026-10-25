@@ -7,6 +7,8 @@ In Unity Hub, add `UnityProject` under this folder using **Unity 6000.3.10f1**. 
 
 The built preview is `Builds/Windows/CampusNavigator.exe`. Keep its companion folders and DLLs together. This is a Windows preview, not the Android APK.
 
+The ground-office doors are closed to clear the front corridor approach. Building A previews enter from the front instead of circling behind the office. Selecting a ground-floor office ends outside its closed door.
+
 ## How it works
 1. Search a room or enter `take me to IoT Lab`. Select the building/floor and a result.
 2. Choose a preview starting checkpoint and press **Preview**. The perspective camera follows behind the person, including on stairs. **Map** switches to the optional overhead view; **Follow** returns behind the person. This is a simulation, not phone tracking.

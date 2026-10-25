@@ -10,6 +10,8 @@ There is no remote database and no user-location history. The versioned local fi
 
 Room IDs use `A-F1-R1` for physical first classroom above ground. Its display name is Classroom 4. IDs must not change when a label changes. Building B is provisional. QR payload is exactly `campus:v1:<checkpoint-id>` and contains no credentials or coordinates.
 
+Room positions are navigation arrival points, not necessarily room centres. Both ground-floor office doors are closed; their destinations are on the corridor side of the doorway. Upper-floor room arrival points remain unchanged.
+
 Survey updates: record surveyor/date, verify metres and arrow heading, update JSON, mark only approved checkpoints `surveyed: true`, regenerate corresponding QR sheets, rebake when geometry changes, rerun route tests, then rebuild. Do not mark every checkpoint surveyed simply to bypass the safety gate. Version the JSON alongside the model.
 
 No migration framework is needed for immutable schema 1 data. New schema versions must explicitly implement migration and decoding, not silently accept unknown fields as trusted positioning.

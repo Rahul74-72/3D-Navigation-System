@@ -44,6 +44,7 @@ namespace Campus.Editor
             var app=new GameObject("Campus Navigation").AddComponent<CampusApp>();
             app.gameObject.AddComponent<CampusSmoke>();
             app.catalogue=AssetDatabase.LoadAssetAtPath<TextAsset>(dataPath);app.navigation=AssetDatabase.LoadAssetAtPath<NavMeshData>("Assets/Navigation/CampusFirstFloorWalkable.asset");app.building=root.transform;app.mapCamera=camera;
+            CampusOfficeRoute.Apply(root.transform,app.navigation);
             app.routeMaterial=Material("Route",new Color(.04f,.65f,.4f));app.positionMaterial=Material("Position",new Color(.05f,.4f,.85f));
             var neutral=AssetDatabase.LoadAssetAtPath<Material>("Assets/Navigation/CampusNeutralConcrete.mat");
             foreach(var rr in root.GetComponentsInChildren<Renderer>(true))

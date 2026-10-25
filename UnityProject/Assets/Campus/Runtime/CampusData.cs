@@ -74,7 +74,7 @@ namespace Campus.Navigation
                 }
                 list.Add(new Room { id = building + "-F" + f + "-OFFICE", building = building, floor = f,
                     name = f == 1 ? "Environment Lab" : f == 2 ? "Library" : "Office",
-                    position = new Vector3(b == 0 ? -5.75f : 13.65f, f * 3.3f + .01f, -10) });
+                    position = f == 0 ? new Vector3(b == 0 ? -2.5f : 9.9f,.07f,-7.5f) : new Vector3(b == 0 ? -5.75f : 13.65f, f * 3.3f + .01f, -10) });
             }
             var cp = new System.Collections.Generic.List<Checkpoint> {
                 new Checkpoint {id="gate-a",label="Main gate A",position=new Vector3(-11.5f,.785f,-23.4f),facingYaw=0},

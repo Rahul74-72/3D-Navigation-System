@@ -40,6 +40,7 @@ namespace Campus.Navigation
             bool cameraPassed=app.FollowPerson&&!app.mapCamera.orthographic;
             float maxCameraHeight=0;
             bool stairCaptured=false;
+            bool frontEntrance=false,rearDetour=false;
             Time.timeScale=10;
             float until=Time.realtimeSinceStartup+60;
             while(!app.Arrived&&Time.realtimeSinceStartup<until)
@@ -47,14 +48,18 @@ namespace Campus.Navigation
                 float cameraHeight=app.mapCamera.transform.position.y-app.Person.position.y;
                 maxCameraHeight=Mathf.Max(maxCameraHeight,cameraHeight);
                 cameraPassed&=cameraHeight<2.5f&&Vector3.Distance(app.mapCamera.transform.position,app.Person.position)<4;
+                var p=app.UserPosition;
+                rearDetour|=p.y<1&&p.x<-9.9f&&p.z>-15.6f&&p.z<-8;
+                if(!frontEntrance&&p.y<.2f&&p.x>-3.2f&&p.x<-1.5f&&p.z>-7.85f&&p.z<-7)
+                {frontEntrance=true;ScreenCapture.CaptureScreenshot(Path.Combine(output,"follow-office-front.png"));}
                 if(!stairCaptured&&app.UserPosition.y>1.4f&&app.UserPosition.y<2.8f){stairCaptured=true;ScreenCapture.CaptureScreenshot(Path.Combine(output,"follow-stairs.png"));}
                 yield return null;
             }
             Time.timeScale=1;
             yield return new WaitForSeconds(1);ScreenCapture.CaptureScreenshot(Path.Combine(output,"follow-arrival.png"));yield return new WaitForSeconds(1);
             app.SetFollowView(false);cameraPassed&=app.mapCamera.orthographic;app.SetFollowView(true);cameraPassed&=!app.mapCamera.orthographic;
-            bool ok=app.Arrived&&Mathf.Abs(app.UserPosition.y-3.3f)<.2f&&uiPassed&&errors==0&&cameraPassed&&stairCaptured;
-            File.WriteAllText(Path.Combine(output,"runtime-smoke.txt"),"arrived="+app.Arrived+"\nposition="+app.UserPosition+"\nmode="+app.Mode+"\nsearchFilters="+uiPassed+"\nfollowCamera="+cameraPassed+"\nmaxCameraHeight="+maxCameraHeight+"\nstairCaptured="+stairCaptured+"\nruntimeErrors="+errors+"\npassed="+ok);
+            bool ok=app.Arrived&&Mathf.Abs(app.UserPosition.y-3.3f)<.2f&&uiPassed&&errors==0&&cameraPassed&&stairCaptured&&frontEntrance&&!rearDetour;
+            File.WriteAllText(Path.Combine(output,"runtime-smoke.txt"),"arrived="+app.Arrived+"\nposition="+app.UserPosition+"\nmode="+app.Mode+"\nsearchFilters="+uiPassed+"\nfollowCamera="+cameraPassed+"\nmaxCameraHeight="+maxCameraHeight+"\nstairCaptured="+stairCaptured+"\nfrontEntrance="+frontEntrance+"\nrearDetour="+rearDetour+"\nruntimeErrors="+errors+"\npassed="+ok);
             Application.logMessageReceived-=CaptureError;
             Application.Quit(ok?0:1);
         }
