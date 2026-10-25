@@ -59,6 +59,17 @@ namespace Campus.Navigation
             yield return new WaitForSeconds(1);ScreenCapture.CaptureScreenshot(Path.Combine(output,"follow-arrival.png"));yield return new WaitForSeconds(1);
             app.SetFollowView(false);cameraPassed&=app.mapCamera.orthographic;app.SetFollowView(true);cameraPassed&=!app.mapCamera.orthographic;
             bool ok=app.Arrived&&Mathf.Abs(app.UserPosition.y-3.3f)<.2f&&uiPassed&&errors==0&&cameraPassed&&stairCaptured&&frontEntrance&&!rearDetour;
+            bool classroomArrived=app.Arrived;var classroomPosition=app.UserPosition;
+            bool washroomArrivals=true;
+            foreach(string id in new[]{"A-F0-WC-F","A-F0-WC-M"})
+            {
+                app.SelectStart(0);app.SelectRoom(app.Data.rooms.Single(r=>r.id==id));app.Preview();
+                Time.timeScale=10;until=Time.realtimeSinceStartup+40;
+                while(!app.Arrived&&Time.realtimeSinceStartup<until)yield return null;
+                washroomArrivals&=app.Arrived&&Vector3.Distance(app.UserPosition,app.Destination.position)<.4f;
+                Time.timeScale=1;
+            }
+            ok&=washroomArrivals;
             app.mapCamera.GetComponent<CampusFollowCamera>().enabled=false;
             Object.FindFirstObjectByType<CampusUI>().enabled=false;
             ui.style.display=DisplayStyle.None;Screen.SetResolution(1000,700,false);
@@ -71,8 +82,16 @@ namespace Campus.Navigation
                 yield return new WaitForSeconds(.5f);
                 ScreenCapture.CaptureScreenshot(Path.Combine(output,"nameplate-"+id+".png"));yield return new WaitForSeconds(.5f);
             }
+            foreach(string id in new[]{"A-F0-WC-F","A-F0-WC-M","B-F0-WC-F","B-F0-WC-M"})
+            {
+                var door=app.building.GetComponentsInChildren<Renderer>().Single(r=>r.name=="WashroomDoor_"+id);
+                var outward=id.StartsWith("A")?Vector3.right:Vector3.left;
+                var target=door.bounds.center+Vector3.up*.3f;
+                app.mapCamera.transform.SetPositionAndRotation(target+outward*2.4f,Quaternion.LookRotation(-outward,Vector3.up));
+                yield return new WaitForSeconds(.5f);ScreenCapture.CaptureScreenshot(Path.Combine(output,"washroom-"+id+".png"));yield return new WaitForSeconds(.5f);
+            }
             ok&=errors==0;
-            File.WriteAllText(Path.Combine(output,"runtime-smoke.txt"),"arrived="+app.Arrived+"\nposition="+app.UserPosition+"\nmode="+app.Mode+"\nsearchFilters="+uiPassed+"\nfollowCamera="+cameraPassed+"\nmaxCameraHeight="+maxCameraHeight+"\nstairCaptured="+stairCaptured+"\nfrontEntrance="+frontEntrance+"\nrearDetour="+rearDetour+"\nruntimeErrors="+errors+"\npassed="+ok);
+            File.WriteAllText(Path.Combine(output,"runtime-smoke.txt"),"arrived="+classroomArrived+"\nposition="+classroomPosition+"\nmode="+app.Mode+"\nwashroomArrivals="+washroomArrivals+"\nsearchFilters="+uiPassed+"\nfollowCamera="+cameraPassed+"\nmaxCameraHeight="+maxCameraHeight+"\nstairCaptured="+stairCaptured+"\nfrontEntrance="+frontEntrance+"\nrearDetour="+rearDetour+"\nruntimeErrors="+errors+"\npassed="+ok);
             Application.logMessageReceived-=CaptureError;
             Application.Quit(ok?0:1);
         }

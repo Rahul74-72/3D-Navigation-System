@@ -12,6 +12,8 @@ Room IDs use `A-F1-R1` for physical first classroom above ground. Its display na
 
 Room positions are navigation arrival points, not necessarily room centres. Both ground-floor office doors are closed; their destinations are on the corridor side of the doorway. Upper-floor room arrival points remain unchanged.
 
+Washrooms use `A-F0-WC-F` and `A-F0-WC-M` (and corresponding building/floor IDs). Their arrival points are outside the closed doors. Female is on the viewer's left when facing the front wall, so the Z ordering reverses in Building B. These coordinates remain provisional. Scene preparation adds missing washroom records without overwriting existing catalogue entries.
+
 Survey updates: record surveyor/date, verify metres and arrow heading, update JSON, mark only approved checkpoints `surveyed: true`, regenerate corresponding QR sheets, rebake when geometry changes, rerun route tests, then rebuild. Do not mark every checkpoint surveyed simply to bypass the safety gate. Version the JSON alongside the model.
 
 No migration framework is needed for immutable schema 1 data. New schema versions must explicitly implement migration and decoding, not silently accept unknown fields as trusted positioning.

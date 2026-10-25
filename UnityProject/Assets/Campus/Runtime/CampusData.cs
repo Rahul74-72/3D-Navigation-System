@@ -10,6 +10,7 @@ namespace Campus.Navigation
         public int floor;
         public Vector3 position;
         public bool surveyed;
+        public bool IsWashroom => id != null && id.Contains("-WC-");
         public string Label => building + " / " + (floor == 0 ? "Ground" : "Floor " + floor) + " / " + name;
     }
 
@@ -33,6 +34,9 @@ namespace Campus.Navigation
         public Room[] Search(string query, int floor = -1, string building = "All")
         {
             query = (query ?? "").Trim();
+            if(query.Equals("male",StringComparison.OrdinalIgnoreCase)||query.Equals("female",StringComparison.OrdinalIgnoreCase))query+=" Washroom";
+            var exact=rooms.Where(r=>(floor<0||r.floor==floor)&&(building=="All"||r.building==building)&&r.name.Equals(query,StringComparison.OrdinalIgnoreCase)).ToArray();
+            if(exact.Length>0)return exact;
             return rooms.Where(r => (floor < 0 || r.floor == floor) &&
                 (building == "All" || r.building == building) &&
                 (query.Length == 0 || r.Label.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0 ||
@@ -76,6 +80,7 @@ namespace Campus.Navigation
                     name = f == 1 ? "Environment Lab" : f == 2 ? "Library" : "Office",
                     position = f == 0 ? new Vector3(b == 0 ? -2.5f : 9.9f,.07f,-7.5f) : new Vector3(b == 0 ? -5.75f : 13.65f, f * 3.3f + .01f, -10) });
             }
+            list.AddRange(Washrooms());
             var cp = new System.Collections.Generic.List<Checkpoint> {
                 new Checkpoint {id="gate-a",label="Main gate A",position=new Vector3(-11.5f,.785f,-23.4f),facingYaw=0},
                 new Checkpoint {id="gate-b",label="Main gate B",position=new Vector3(21.5f,.785f,-23.4f),facingYaw=0}
@@ -84,6 +89,19 @@ namespace Campus.Navigation
                 cp.Add(new Checkpoint { id = (b == 0 ? "a" : "b") + "-f" + f, label = "Building " + (b == 0 ? "A" : "B") + " floor " + f,
                     floor = f, position = new Vector3(b == 0 ? -2.5f : 9.9f, f * 3.3f + .07f, 2), facingYaw = 0 });
             return new CampusData { rooms = list.ToArray(), checkpoints = cp.ToArray() };
+        }
+
+        public static Room[] Washrooms()
+        {
+            var rooms=new System.Collections.Generic.List<Room>();
+            for(int b=0;b<2;b++)for(int f=0;f<4;f++)for(int sex=0;sex<2;sex++)
+            {
+                bool female=sex==0;bool lowZ=(b==0)==female;
+                string building=b==0?"A":"B";
+                rooms.Add(new Room{id=building+"-F"+f+"-WC-"+(female?"F":"M"),building=building,floor=f,
+                    name=(female?"Female":"Male")+" Washroom",position=new Vector3(b==0?-9.7f:17.1f,f*3.3f+.07f,lowZ?5.375f:10.125f)});
+            }
+            return rooms.ToArray();
         }
     }
 

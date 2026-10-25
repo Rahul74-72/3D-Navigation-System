@@ -11,6 +11,7 @@ namespace Campus.Editor
     {
         public static string Label(Room room)
         {
+            if(room.IsWashroom)return room.name.Replace(" ","\n");
             bool provisional=room.building!="A" || (room.floor>1 && !(room.floor==2 && room.id.EndsWith("-OFFICE")));
             return room.name+(provisional?"\n<size=65%>Provisional</size>":"");
         }
@@ -27,7 +28,13 @@ namespace Campus.Editor
             {
                 string side=room.building=="A"?"Original":"Duplicate";
                 string prefix="ROOM_"+side+"_F"+(room.floor+1)+"_C";
-                if(!room.id.EndsWith("-OFFICE"))
+                if(room.IsWashroom)
+                {
+                    var plate=renderers.Single(r=>r.name=="WashroomNameplate_"+room.id);
+                    Vector3 outward=room.building=="A"?Vector3.right:Vector3.left;
+                    AddText(building,plate.bounds.center+outward*(plate.bounds.extents.x+.004f),outward,room,1,font);
+                }
+                else if(!room.id.EndsWith("-OFFICE"))
                 {
                     string number=room.id.Substring(room.id.LastIndexOf('R')+1);
                     for(int door=1;door<=2;door++)

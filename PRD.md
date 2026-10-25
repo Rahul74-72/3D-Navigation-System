@@ -9,6 +9,7 @@ An offline-first Android campus map with optional AR guidance. Browse two buildi
 - Building A ground: Office, Classrooms 1-3, Computer Lab, Language Lab, IoT Lab.
 - First floor above ground: Environment Lab and Classrooms 4-9.
 - Library is above Environment Lab on the second floor above ground.
+- Washrooms have front doors, with Female on the left and Male on the right when facing the entrance wall from the corridor; this convention is mirrored for the opposite building.
 - Remaining floor/Building B names are provisional, not surveyed facts.
 - Floor height remains estimated at 3.3 m. Four floors means ground plus three.
 - POCO X6 Pro is the first test device. Other Android models need a device matrix, not a claim of universal AR support.

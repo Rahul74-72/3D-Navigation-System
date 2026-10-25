@@ -36,6 +36,9 @@ namespace Campus.Editor
             var old=GameObject.Find("Gate to First Floor Classroom 4");if(old!=null)UnityEngine.Object.DestroyImmediate(old);
             var dataPath="Assets/Campus/Data/campus.json";
             if(!File.Exists(dataPath))File.WriteAllText(dataPath,JsonUtility.ToJson(CampusData.Provisional(),true));
+            var data=JsonUtility.FromJson<CampusData>(File.ReadAllText(dataPath));
+            var missing=CampusData.Washrooms().Where(r=>!data.rooms.Any(existing=>existing.id==r.id)).ToArray();
+            if(missing.Length>0){data.rooms=data.rooms.Concat(missing).ToArray();File.WriteAllText(dataPath,JsonUtility.ToJson(data,true));}
             AssetDatabase.Refresh();
             var root=GameObject.Find("Campus_Main_Gates_Model");
             var camera=GameObject.Find("Campus Preview Camera").GetComponent<Camera>();camera.name="Map Camera";camera.cullingMask=~(1<<30);camera.overrideSceneCullingMask=0;camera.orthographic=true;
@@ -44,6 +47,7 @@ namespace Campus.Editor
             var app=new GameObject("Campus Navigation").AddComponent<CampusApp>();
             app.gameObject.AddComponent<CampusSmoke>();
             app.catalogue=AssetDatabase.LoadAssetAtPath<TextAsset>(dataPath);app.navigation=AssetDatabase.LoadAssetAtPath<NavMeshData>("Assets/Navigation/CampusFirstFloorWalkable.asset");app.building=root.transform;app.mapCamera=camera;
+            CampusWashrooms.Apply(root.transform);
             CampusOfficeRoute.Apply(root.transform,app.navigation);
             CampusNameplates.Apply(root.transform,JsonUtility.FromJson<CampusData>(app.catalogue.text));
             app.routeMaterial=Material("Route",new Color(.04f,.65f,.4f));app.positionMaterial=Material("Position",new Color(.05f,.4f,.85f));

@@ -81,7 +81,7 @@
             "floor": 0,
             "position": {
                 "x": -2.5,
-                "y": 0.07,
+                "y": 0.07000000029802323,
                 "z": -7.5
             },
             "surveyed": false
@@ -416,8 +416,8 @@
             "name": "Office",
             "floor": 0,
             "position": {
-                "x": 9.9,
-                "y": 0.07,
+                "x": 9.899999618530274,
+                "y": 0.07000000029802323,
                 "z": -7.5
             },
             "surveyed": false
@@ -671,6 +671,198 @@
                 "x": 13.649999618530274,
                 "y": 9.90999984741211,
                 "z": -10.0
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F0-WC-F",
+            "building": "A",
+            "name": "Female Washroom",
+            "floor": 0,
+            "position": {
+                "x": -9.699999809265137,
+                "y": 0.07000000029802323,
+                "z": 5.375
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F0-WC-M",
+            "building": "A",
+            "name": "Male Washroom",
+            "floor": 0,
+            "position": {
+                "x": -9.699999809265137,
+                "y": 0.07000000029802323,
+                "z": 10.125
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F1-WC-F",
+            "building": "A",
+            "name": "Female Washroom",
+            "floor": 1,
+            "position": {
+                "x": -9.699999809265137,
+                "y": 3.369999885559082,
+                "z": 5.375
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F1-WC-M",
+            "building": "A",
+            "name": "Male Washroom",
+            "floor": 1,
+            "position": {
+                "x": -9.699999809265137,
+                "y": 3.369999885559082,
+                "z": 10.125
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F2-WC-F",
+            "building": "A",
+            "name": "Female Washroom",
+            "floor": 2,
+            "position": {
+                "x": -9.699999809265137,
+                "y": 6.670000076293945,
+                "z": 5.375
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F2-WC-M",
+            "building": "A",
+            "name": "Male Washroom",
+            "floor": 2,
+            "position": {
+                "x": -9.699999809265137,
+                "y": 6.670000076293945,
+                "z": 10.125
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F3-WC-F",
+            "building": "A",
+            "name": "Female Washroom",
+            "floor": 3,
+            "position": {
+                "x": -9.699999809265137,
+                "y": 9.970000267028809,
+                "z": 5.375
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F3-WC-M",
+            "building": "A",
+            "name": "Male Washroom",
+            "floor": 3,
+            "position": {
+                "x": -9.699999809265137,
+                "y": 9.970000267028809,
+                "z": 10.125
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F0-WC-F",
+            "building": "B",
+            "name": "Female Washroom",
+            "floor": 0,
+            "position": {
+                "x": 17.100000381469728,
+                "y": 0.07000000029802323,
+                "z": 10.125
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F0-WC-M",
+            "building": "B",
+            "name": "Male Washroom",
+            "floor": 0,
+            "position": {
+                "x": 17.100000381469728,
+                "y": 0.07000000029802323,
+                "z": 5.375
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F1-WC-F",
+            "building": "B",
+            "name": "Female Washroom",
+            "floor": 1,
+            "position": {
+                "x": 17.100000381469728,
+                "y": 3.369999885559082,
+                "z": 10.125
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F1-WC-M",
+            "building": "B",
+            "name": "Male Washroom",
+            "floor": 1,
+            "position": {
+                "x": 17.100000381469728,
+                "y": 3.369999885559082,
+                "z": 5.375
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F2-WC-F",
+            "building": "B",
+            "name": "Female Washroom",
+            "floor": 2,
+            "position": {
+                "x": 17.100000381469728,
+                "y": 6.670000076293945,
+                "z": 10.125
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F2-WC-M",
+            "building": "B",
+            "name": "Male Washroom",
+            "floor": 2,
+            "position": {
+                "x": 17.100000381469728,
+                "y": 6.670000076293945,
+                "z": 5.375
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F3-WC-F",
+            "building": "B",
+            "name": "Female Washroom",
+            "floor": 3,
+            "position": {
+                "x": 17.100000381469728,
+                "y": 9.970000267028809,
+                "z": 10.125
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F3-WC-M",
+            "building": "B",
+            "name": "Male Washroom",
+            "floor": 3,
+            "position": {
+                "x": 17.100000381469728,
+                "y": 9.970000267028809,
+                "z": 5.375
             },
             "surveyed": false
         }

@@ -16,11 +16,11 @@ public sealed class CampusTests
         {
             var building=scene.GetRootGameObjects().Single(g=>g.name=="Campus_Main_Gates_Model");
             var labels=building.GetComponentsInChildren<TMPro.TextMeshPro>();
-            Assert.AreEqual(104,labels.Length);
+            Assert.AreEqual(120,labels.Length);
             var data=JsonUtility.FromJson<CampusData>(AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Campus/Data/campus.json").text);
             foreach(var room in data.rooms)
             {
-                for(int door=1;door<=(room.id.EndsWith("-OFFICE")?1:2);door++)
+                for(int door=1;door<=(room.id.EndsWith("-OFFICE")||room.IsWashroom?1:2);door++)
                 {
                     var text=labels.Single(t=>t.name=="RoomName_"+room.id+"_D"+door);
                     Assert.AreEqual(Campus.Editor.CampusNameplates.Label(room),text.text);
@@ -95,7 +95,48 @@ public sealed class CampusTests
     [Test] public void FollowCameraStaysBehindPerson(){var p=CampusFollowCamera.DesiredPosition(Vector3.zero,Vector3.forward,2.4f);Assert.Less(p.z,0);Assert.AreEqual(1.5f,p.y,.001);}
     [Test] public void FollowCameraUsesPersonsFloor(){var p=CampusFollowCamera.DesiredPosition(new Vector3(0,6.6f,0),Vector3.right,2.4f);Assert.AreEqual(8.1f,p.y,.001);Assert.Less(p.x,0);}
     [Test] public void FollowCameraIgnoresFacingPitch(){var p=CampusFollowCamera.DesiredPosition(Vector3.zero,new Vector3(0,1,1),2.4f);Assert.AreEqual(1.5f,p.y,.001);Assert.AreEqual(-2.4f,p.z,.001);}
-    [Test] public void CatalogueHasStableUniqueIds(){var d=CampusData.Provisional();Assert.IsNull(d.Validate());Assert.AreEqual(56,d.rooms.Length);Assert.AreEqual(10,d.checkpoints.Length);}
+    [Test] public void CatalogueHasStableUniqueIds(){var d=CampusData.Provisional();Assert.IsNull(d.Validate());Assert.AreEqual(72,d.rooms.Length);Assert.AreEqual(10,d.checkpoints.Length);}
+    [TestCase("A",0)] [TestCase("A",1)] [TestCase("A",2)] [TestCase("A",3)]
+    [TestCase("B",0)] [TestCase("B",1)] [TestCase("B",2)] [TestCase("B",3)]
+    public void WashroomsAreSearchableAndFemaleIsOnLeft(string building,int floor)
+    {
+        var data=CampusData.Provisional();var rooms=data.Search("Washroom",floor,building);Assert.AreEqual(2,rooms.Length);
+        var female=rooms.Single(r=>r.name=="Female Washroom");var male=rooms.Single(r=>r.name=="Male Washroom");
+        Vector3 viewRight=building=="A"?Vector3.forward:Vector3.back;
+        Assert.Less(Vector3.Dot(female.position-male.position,viewRight),0);
+        Assert.AreEqual(floor*3.3f+.07f,female.position.y,.001f);
+    }
+    [TestCase("male","Male Washroom")] [TestCase("male washroom","Male Washroom")]
+    [TestCase("female","Female Washroom")] [TestCase("female washroom","Female Washroom")]
+    public void WashroomSearchNeverConfusesMaleAndFemale(string query,string expected)
+    {
+        var rooms=CampusData.Provisional().Search(query);Assert.AreEqual(8,rooms.Length);Assert.IsTrue(rooms.All(r=>r.name==expected));
+    }
+    [Test] public void WashroomDoorsAndPrivacyPartitionsExistOnEveryFloor()
+    {
+        var scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene(Campus.Editor.CampusBuild.ScenePath,UnityEditor.SceneManagement.OpenSceneMode.Additive);
+        try
+        {
+            var building=scene.GetRootGameObjects().Single(g=>g.name=="Campus_Main_Gates_Model");
+            var renderers=building.GetComponentsInChildren<Renderer>();
+            Assert.AreEqual(8,renderers.Count(r=>r.name=="PrivacyDivider"));
+            Assert.AreEqual(16,renderers.Count(r=>r.name.StartsWith("WashroomDoor_")));
+            Physics.SyncTransforms();
+            foreach(var room in CampusData.Washrooms())
+            {
+                var door=renderers.Single(r=>r.name=="WashroomDoor_"+room.id);
+                Assert.NotNull(door.GetComponent<BoxCollider>());
+                Vector3 outward=room.building=="A"?Vector3.right:Vector3.left;
+                var ray=new Ray(door.bounds.center+outward,-outward);
+                Assert.IsTrue(door.GetComponent<Collider>().Raycast(ray,out var doorHit,2));
+                foreach(var collider in building.GetComponentsInChildren<Collider>())
+                    if(collider!=door.GetComponent<Collider>()&&collider.enabled)
+                        Assert.IsFalse(collider.Raycast(ray,out _,doorHit.distance-.001f),room.id+" door obscured by "+collider.name);
+                Assert.Greater(Vector3.Dot(room.position-door.bounds.center,outward),.4f);
+            }
+        }
+        finally{UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene,true);}
+    }
     [Test] public void ConfirmedGroundRooms(){var d=CampusData.Provisional();Assert.AreEqual(1,d.Search("Language Lab",0,"A").Length);Assert.AreEqual(1,d.Search("IoT Lab",0,"A").Length);}
     [Test] public void OfficesStackCorrectly(){var d=CampusData.Provisional();Assert.AreEqual(1,d.Search("Environment Lab",1,"A").Length);Assert.AreEqual(1,d.Search("Library",2,"A").Length);}
     [Test] public void Classroom4IsFirstAboveOffice(){var r=CampusData.Provisional().rooms.Single(x=>x.id=="A-F1-R1");Assert.AreEqual("Classroom 4",r.name);Assert.AreEqual(3.31f,r.position.y,.001);}

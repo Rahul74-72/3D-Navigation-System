@@ -11,6 +11,8 @@ The ground-office doors are closed to clear the front corridor approach. Buildin
 
 Room names appear on both classroom-door nameplates and on office/lab/library entrance plates. Labels come from the room catalogue; unconfirmed names include a smaller Provisional line. Run scene preparation after renaming rooms in the catalogue.
 
+Each floor has separate front washroom doors: Female on the left and Male on the right when facing them from the corridor. Both buildings follow this convention. Search for Female Washroom or Male Washroom; arrivals stop outside the closed doors.
+
 ## How it works
 1. Search a room or enter `take me to IoT Lab`. Select the building/floor and a result.
 2. Choose a preview starting checkpoint and press **Preview**. The perspective camera follows behind the person, including on stairs. **Map** switches to the optional overhead view; **Follow** returns behind the person. This is a simulation, not phone tracking.
@@ -29,7 +31,7 @@ Room names appear on both classroom-door nameplates and on office/lab/library en
 - Local tests, route-audit CSV, generated QR PNGs, reproducible setup/build commands.
 
 ## Known limits
-- Building A routes connect; 27 Building B routes from its gate fail the current mesh audit. The app blocks them rather than cutting through geometry.
+- Building A routes connect; 35 Building B routes from its gate fail the current mesh audit, including its eight washroom entrances. The app blocks them rather than cutting through geometry.
 - Floor heights are estimated. Building B and upper-floor labels need verification.
 - Android SDK/NDK/JDK support, an APK build, actual camera/AR behavior and campus accuracy tests are not yet verified here.
 - Offline commands are deterministic, not a generative AI assistant. BLE and barometer support are deferred.
