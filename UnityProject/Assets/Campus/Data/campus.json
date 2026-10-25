@@ -1,0 +1,800 @@
+{
+    "schemaVersion": 1,
+    "revision": "provisional-2026-10-25",
+    "rooms": [
+        {
+            "id": "A-F0-R1",
+            "building": "A",
+            "name": "Classroom 1",
+            "floor": 0,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 0.009999999776482582,
+                "z": -3.1500000953674318
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F0-R2",
+            "building": "A",
+            "name": "Classroom 2",
+            "floor": 0,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 0.009999999776482582,
+                "z": 1.850000023841858
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F0-R3",
+            "building": "A",
+            "name": "Classroom 3",
+            "floor": 0,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 0.009999999776482582,
+                "z": 16.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F0-R4",
+            "building": "A",
+            "name": "Computer Lab",
+            "floor": 0,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 0.009999999776482582,
+                "z": 21.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F0-R5",
+            "building": "A",
+            "name": "Language Lab",
+            "floor": 0,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 0.009999999776482582,
+                "z": 26.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F0-R6",
+            "building": "A",
+            "name": "IoT Lab",
+            "floor": 0,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 0.009999999776482582,
+                "z": 31.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F0-OFFICE",
+            "building": "A",
+            "name": "Office",
+            "floor": 0,
+            "position": {
+                "x": -5.75,
+                "y": 0.009999999776482582,
+                "z": -10.0
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F1-R1",
+            "building": "A",
+            "name": "Classroom 4",
+            "floor": 1,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 3.309999942779541,
+                "z": -3.1500000953674318
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F1-R2",
+            "building": "A",
+            "name": "Classroom 5",
+            "floor": 1,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 3.309999942779541,
+                "z": 1.850000023841858
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F1-R3",
+            "building": "A",
+            "name": "Classroom 6",
+            "floor": 1,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 3.309999942779541,
+                "z": 16.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F1-R4",
+            "building": "A",
+            "name": "Classroom 7",
+            "floor": 1,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 3.309999942779541,
+                "z": 21.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F1-R5",
+            "building": "A",
+            "name": "Classroom 8",
+            "floor": 1,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 3.309999942779541,
+                "z": 26.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F1-R6",
+            "building": "A",
+            "name": "Classroom 9",
+            "floor": 1,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 3.309999942779541,
+                "z": 31.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F1-OFFICE",
+            "building": "A",
+            "name": "Environment Lab",
+            "floor": 1,
+            "position": {
+                "x": -5.75,
+                "y": 3.309999942779541,
+                "z": -10.0
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F2-R1",
+            "building": "A",
+            "name": "Classroom 10",
+            "floor": 2,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 6.610000133514404,
+                "z": -3.1500000953674318
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F2-R2",
+            "building": "A",
+            "name": "Classroom 11",
+            "floor": 2,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 6.610000133514404,
+                "z": 1.850000023841858
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F2-R3",
+            "building": "A",
+            "name": "Classroom 12",
+            "floor": 2,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 6.610000133514404,
+                "z": 16.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F2-R4",
+            "building": "A",
+            "name": "Classroom 13",
+            "floor": 2,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 6.610000133514404,
+                "z": 21.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F2-R5",
+            "building": "A",
+            "name": "Classroom 14",
+            "floor": 2,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 6.610000133514404,
+                "z": 26.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F2-R6",
+            "building": "A",
+            "name": "Classroom 15",
+            "floor": 2,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 6.610000133514404,
+                "z": 31.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F2-OFFICE",
+            "building": "A",
+            "name": "Library",
+            "floor": 2,
+            "position": {
+                "x": -5.75,
+                "y": 6.610000133514404,
+                "z": -10.0
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F3-R1",
+            "building": "A",
+            "name": "Classroom 16",
+            "floor": 3,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 9.90999984741211,
+                "z": -3.1500000953674318
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F3-R2",
+            "building": "A",
+            "name": "Classroom 17",
+            "floor": 3,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 9.90999984741211,
+                "z": 1.850000023841858
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F3-R3",
+            "building": "A",
+            "name": "Classroom 18",
+            "floor": 3,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 9.90999984741211,
+                "z": 16.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F3-R4",
+            "building": "A",
+            "name": "Classroom 19",
+            "floor": 3,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 9.90999984741211,
+                "z": 21.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F3-R5",
+            "building": "A",
+            "name": "Classroom 20",
+            "floor": 3,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 9.90999984741211,
+                "z": 26.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F3-R6",
+            "building": "A",
+            "name": "Classroom 21",
+            "floor": 3,
+            "position": {
+                "x": -4.400000095367432,
+                "y": 9.90999984741211,
+                "z": 31.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "A-F3-OFFICE",
+            "building": "A",
+            "name": "Office",
+            "floor": 3,
+            "position": {
+                "x": -5.75,
+                "y": 9.90999984741211,
+                "z": -10.0
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F0-R1",
+            "building": "B",
+            "name": "Classroom 1",
+            "floor": 0,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 0.009999999776482582,
+                "z": -3.1500000953674318
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F0-R2",
+            "building": "B",
+            "name": "Classroom 2",
+            "floor": 0,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 0.009999999776482582,
+                "z": 1.850000023841858
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F0-R3",
+            "building": "B",
+            "name": "Classroom 3",
+            "floor": 0,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 0.009999999776482582,
+                "z": 16.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F0-R4",
+            "building": "B",
+            "name": "Computer Lab",
+            "floor": 0,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 0.009999999776482582,
+                "z": 21.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F0-R5",
+            "building": "B",
+            "name": "Language Lab",
+            "floor": 0,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 0.009999999776482582,
+                "z": 26.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F0-R6",
+            "building": "B",
+            "name": "IoT Lab",
+            "floor": 0,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 0.009999999776482582,
+                "z": 31.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F0-OFFICE",
+            "building": "B",
+            "name": "Office",
+            "floor": 0,
+            "position": {
+                "x": 13.649999618530274,
+                "y": 0.009999999776482582,
+                "z": -10.0
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F1-R1",
+            "building": "B",
+            "name": "Classroom 4",
+            "floor": 1,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 3.309999942779541,
+                "z": -3.1500000953674318
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F1-R2",
+            "building": "B",
+            "name": "Classroom 5",
+            "floor": 1,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 3.309999942779541,
+                "z": 1.850000023841858
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F1-R3",
+            "building": "B",
+            "name": "Classroom 6",
+            "floor": 1,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 3.309999942779541,
+                "z": 16.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F1-R4",
+            "building": "B",
+            "name": "Classroom 7",
+            "floor": 1,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 3.309999942779541,
+                "z": 21.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F1-R5",
+            "building": "B",
+            "name": "Classroom 8",
+            "floor": 1,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 3.309999942779541,
+                "z": 26.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F1-R6",
+            "building": "B",
+            "name": "Classroom 9",
+            "floor": 1,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 3.309999942779541,
+                "z": 31.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F1-OFFICE",
+            "building": "B",
+            "name": "Environment Lab",
+            "floor": 1,
+            "position": {
+                "x": 13.649999618530274,
+                "y": 3.309999942779541,
+                "z": -10.0
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F2-R1",
+            "building": "B",
+            "name": "Classroom 10",
+            "floor": 2,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 6.610000133514404,
+                "z": -3.1500000953674318
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F2-R2",
+            "building": "B",
+            "name": "Classroom 11",
+            "floor": 2,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 6.610000133514404,
+                "z": 1.850000023841858
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F2-R3",
+            "building": "B",
+            "name": "Classroom 12",
+            "floor": 2,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 6.610000133514404,
+                "z": 16.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F2-R4",
+            "building": "B",
+            "name": "Classroom 13",
+            "floor": 2,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 6.610000133514404,
+                "z": 21.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F2-R5",
+            "building": "B",
+            "name": "Classroom 14",
+            "floor": 2,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 6.610000133514404,
+                "z": 26.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F2-R6",
+            "building": "B",
+            "name": "Classroom 15",
+            "floor": 2,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 6.610000133514404,
+                "z": 31.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F2-OFFICE",
+            "building": "B",
+            "name": "Library",
+            "floor": 2,
+            "position": {
+                "x": 13.649999618530274,
+                "y": 6.610000133514404,
+                "z": -10.0
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F3-R1",
+            "building": "B",
+            "name": "Classroom 16",
+            "floor": 3,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 9.90999984741211,
+                "z": -3.1500000953674318
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F3-R2",
+            "building": "B",
+            "name": "Classroom 17",
+            "floor": 3,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 9.90999984741211,
+                "z": 1.850000023841858
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F3-R3",
+            "building": "B",
+            "name": "Classroom 18",
+            "floor": 3,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 9.90999984741211,
+                "z": 16.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F3-R4",
+            "building": "B",
+            "name": "Classroom 19",
+            "floor": 3,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 9.90999984741211,
+                "z": 21.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F3-R5",
+            "building": "B",
+            "name": "Classroom 20",
+            "floor": 3,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 9.90999984741211,
+                "z": 26.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F3-R6",
+            "building": "B",
+            "name": "Classroom 21",
+            "floor": 3,
+            "position": {
+                "x": 11.800000190734864,
+                "y": 9.90999984741211,
+                "z": 31.350000381469728
+            },
+            "surveyed": false
+        },
+        {
+            "id": "B-F3-OFFICE",
+            "building": "B",
+            "name": "Office",
+            "floor": 3,
+            "position": {
+                "x": 13.649999618530274,
+                "y": 9.90999984741211,
+                "z": -10.0
+            },
+            "surveyed": false
+        }
+    ],
+    "checkpoints": [
+        {
+            "id": "gate-a",
+            "label": "Main gate A",
+            "floor": 0,
+            "position": {
+                "x": -11.5,
+                "y": 0.7850000262260437,
+                "z": -23.399999618530275
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        },
+        {
+            "id": "gate-b",
+            "label": "Main gate B",
+            "floor": 0,
+            "position": {
+                "x": 21.5,
+                "y": 0.7850000262260437,
+                "z": -23.399999618530275
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        },
+        {
+            "id": "a-f0",
+            "label": "Building A floor 0",
+            "floor": 0,
+            "position": {
+                "x": -2.5,
+                "y": 0.07000000029802323,
+                "z": 2.0
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        },
+        {
+            "id": "a-f1",
+            "label": "Building A floor 1",
+            "floor": 1,
+            "position": {
+                "x": -2.5,
+                "y": 3.369999885559082,
+                "z": 2.0
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        },
+        {
+            "id": "a-f2",
+            "label": "Building A floor 2",
+            "floor": 2,
+            "position": {
+                "x": -2.5,
+                "y": 6.670000076293945,
+                "z": 2.0
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        },
+        {
+            "id": "a-f3",
+            "label": "Building A floor 3",
+            "floor": 3,
+            "position": {
+                "x": -2.5,
+                "y": 9.970000267028809,
+                "z": 2.0
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        },
+        {
+            "id": "b-f0",
+            "label": "Building B floor 0",
+            "floor": 0,
+            "position": {
+                "x": 9.899999618530274,
+                "y": 0.07000000029802323,
+                "z": 2.0
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        },
+        {
+            "id": "b-f1",
+            "label": "Building B floor 1",
+            "floor": 1,
+            "position": {
+                "x": 9.899999618530274,
+                "y": 3.369999885559082,
+                "z": 2.0
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        },
+        {
+            "id": "b-f2",
+            "label": "Building B floor 2",
+            "floor": 2,
+            "position": {
+                "x": 9.899999618530274,
+                "y": 6.670000076293945,
+                "z": 2.0
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        },
+        {
+            "id": "b-f3",
+            "label": "Building B floor 3",
+            "floor": 3,
+            "position": {
+                "x": 9.899999618530274,
+                "y": 9.970000267028809,
+                "z": 2.0
+            },
+            "facingYaw": 0.0,
+            "surveyed": false
+        }
+    ]
+}

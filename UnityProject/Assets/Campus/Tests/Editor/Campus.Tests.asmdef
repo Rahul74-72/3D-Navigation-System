@@ -1,0 +1,8 @@
+{
+  "name": "Campus.Tests",
+  "references": ["Campus.Runtime", "Campus.Editor"],
+  "includePlatforms": ["Editor"],
+  "overrideReferences": true,
+  "precompiledReferences": ["zxing.dll", "nunit.framework.dll"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

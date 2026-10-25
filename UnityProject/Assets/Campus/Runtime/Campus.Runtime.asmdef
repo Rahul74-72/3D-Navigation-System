@@ -1,0 +1,5 @@
+{
+  "name": "Campus.Runtime",
+  "references": ["Unity.XR.ARFoundation", "Unity.XR.ARSubsystems", "Unity.XR.CoreUtils", "Unity.InputSystem", "Unity.XR.Management", "Unity.ugui", "Unity.Collections", "Unity.RenderPipelines.Universal.Runtime"],
+  "allowUnsafeCode": false
+}
