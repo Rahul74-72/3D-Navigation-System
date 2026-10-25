@@ -40,7 +40,7 @@ namespace Campus.Editor
             var root=GameObject.Find("Campus_Main_Gates_Model");
             var camera=GameObject.Find("Campus Preview Camera").GetComponent<Camera>();camera.name="Map Camera";camera.cullingMask=~(1<<30);camera.overrideSceneCullingMask=0;camera.orthographic=true;
             camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.85f,.89f,.91f);
-            camera.transform.position=new Vector3(3.7f,55,-24);camera.transform.LookAt(new Vector3(3.7f,1,4));camera.orthographicSize=32;camera.nearClipPlane=.05f;camera.farClipPlane=250;
+            camera.orthographic=false;camera.fieldOfView=60;camera.transform.position=new Vector3(-11.5f,2.285f,-25.8f);camera.transform.rotation=Quaternion.LookRotation(Vector3.forward-Vector3.up*.16f);camera.nearClipPlane=.05f;camera.farClipPlane=250;
             var app=new GameObject("Campus Navigation").AddComponent<CampusApp>();
             app.gameObject.AddComponent<CampusSmoke>();
             app.catalogue=AssetDatabase.LoadAssetAtPath<TextAsset>(dataPath);app.navigation=AssetDatabase.LoadAssetAtPath<NavMeshData>("Assets/Navigation/CampusFirstFloorWalkable.asset");app.building=root.transform;app.mapCamera=camera;
@@ -63,9 +63,10 @@ namespace Campus.Editor
                 var feature=ScriptableObject.CreateInstance<ARBackgroundRendererFeature>();feature.name="AR Camera Background";AssetDatabase.AddObjectToAsset(feature,renderer);renderer.rendererFeatures.Add(feature);renderer.SetDirty();EditorUtility.SetDirty(renderer);
             }
             var ui=new GameObject("Campus UI").AddComponent<CampusUI>();ui.app=app;
-            var settings=ScriptableObject.CreateInstance<PanelSettings>();settings.name="Campus Panel";
+            var settings=AssetDatabase.LoadAssetAtPath<PanelSettings>("Assets/Campus/Data/CampusPanel.asset");
+            if(settings==null){settings=ScriptableObject.CreateInstance<PanelSettings>();settings.name="Campus Panel";AssetDatabase.CreateAsset(settings,"Assets/Campus/Data/CampusPanel.asset");}
             settings.themeStyleSheet=AssetDatabase.LoadAssetAtPath<ThemeStyleSheet>("Assets/Campus/Data/CampusTheme.tss");
-            AssetDatabase.CreateAsset(settings,AssetDatabase.GenerateUniqueAssetPath("Assets/Campus/Data/CampusPanel.asset"));ui.GetComponent<UIDocument>().panelSettings=settings;
+            EditorUtility.SetDirty(settings);ui.GetComponent<UIDocument>().panelSettings=settings;
             ConfigureAndroid();EditorSceneManager.SaveScene(scene,ScenePath);EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene(ScenePath,true)};AssetDatabase.SaveAssets();
             ExportMarkers(JsonUtility.FromJson<CampusData>(app.catalogue.text));ValidateRoutes();Debug.Log("CAMPUS_PREPARE_OK");
         }

@@ -23,6 +23,8 @@ namespace Campus.Navigation
         public int Floor { get; private set; }
         public bool ARView { get; private set; }
         public bool Arrived { get; private set; }
+        public bool FollowPerson { get; private set; } = true;
+        public Transform Person => guide;
         public bool HasRoute => route != null && route.corners.Length > 1;
         private NavMeshDataInstance meshInstance;
         private NavMeshPath route;
@@ -36,6 +38,7 @@ namespace Campus.Navigation
         private Transform[] limbs;
         private readonly Transform[] arrows=new Transform[8];
         private Mesh arrowMesh;
+        private CampusFollowCamera followCamera;
 
         private void Awake()
         {
@@ -58,7 +61,9 @@ namespace Campus.Navigation
             limbs = new[] {guide.Find("ANIM_Companion_arm_L"), guide.Find("ANIM_Companion_arm_R"), guide.Find("ANIM_Companion_leg_L"), guide.Find("ANIM_Companion_leg_R")};
             agent = guide.gameObject.AddComponent<NavMeshAgent>();
             agent.radius=.18f; agent.height=1.65f; agent.speed=1.15f; agent.acceleration=2; agent.angularSpeed=150;
-            agent.stoppingDistance=.15f; agent.enabled=false; guide.gameObject.SetActive(false); arGuide.gameObject.SetActive(false);
+            agent.stoppingDistance=.15f; agent.enabled=false; guide.position=UserPosition; arGuide.gameObject.SetActive(false);
+            followCamera=mapCamera.gameObject.AddComponent<CampusFollowCamera>();followCamera.target=guide;followCamera.obstacles=building;
+            mapCamera.orthographic=false;mapCamera.fieldOfView=60;
             Floor = -2; SetFloor(0); ResetView();
         }
 
@@ -110,8 +115,10 @@ namespace Campus.Navigation
             guide.gameObject.SetActive(true); agent.enabled=true;
             if(!agent.Warp(route.corners[0])||!agent.SetPath(route)){Status="Preview could not start.";StopPreview();return;}
             agent.isStopped=false; previousGuide=guide.position; followFloor=true; Status="PREVIEW - "+Destination.Label;
+            if(route.corners.Length>1)guide.rotation=Quaternion.LookRotation(Vector3.ProjectOnPlane(route.corners[1]-route.corners[0],Vector3.up));
+            SetFollowView(true);
         }
-        private void StopPreview(){if(agent!=null){agent.enabled=false;guide.gameObject.SetActive(false);}if(Mode==NavigationMode.Preview)Mode=NavigationMode.Browse;followFloor=false;}
+        private void StopPreview(){if(agent!=null)agent.enabled=false;if(Mode==NavigationMode.Preview)Mode=NavigationMode.Browse;followFloor=false;}
         public void StopNavigation(){StopPreview();tracking.Stop();Mode=NavigationMode.Browse;Arrived=false;ClearRoute();Status="Navigation stopped.";}
         public void StartScan(){StopPreview();ClearRoute();Mode=NavigationMode.Checkpoint;tracking.Alignment.Invalidate();tracking.Begin();}
         public void SetCheckpoint(Checkpoint checkpoint,bool live)
@@ -143,7 +150,7 @@ namespace Campus.Navigation
         }
         public void SetFloor(int floor)
         {
-            floor=Mathf.Clamp(floor,-1,3);if(Floor==floor||modelRenderers==null)return;Floor=floor;
+            floor=FollowPerson?-1:Mathf.Clamp(floor,-1,3);if(Floor==floor||modelRenderers==null)return;Floor=floor;
             foreach(var rr in modelRenderers)
             {
                 if(rr.name.StartsWith("Nav")||rr.name.StartsWith("NAV")||rr.name.Contains("QR_")||rr.name.Contains("_Sign_GLB")){rr.enabled=false;continue;}
@@ -153,13 +160,23 @@ namespace Campus.Navigation
             }
         }
         public void ResetView()
-        {mapCamera.orthographic=true;mapCamera.orthographicSize=32;mapCamera.transform.position=new Vector3(3.7f,55,-24);mapCamera.transform.LookAt(new Vector3(3.7f,1,4));}
-        public void Zoom(float multiplier){mapCamera.orthographicSize=Mathf.Clamp(mapCamera.orthographicSize*multiplier,4,70);}
-        public void Pan(Vector2 amount){var right=mapCamera.transform.right;var forward=Vector3.ProjectOnPlane(mapCamera.transform.up,Vector3.up).normalized;mapCamera.transform.position+=(right*amount.x+forward*amount.y)*mapCamera.orthographicSize*.15f;}
+        {
+            mapCamera.orthographic=!FollowPerson;
+            if(FollowPerson){followCamera.Snap();return;}
+            mapCamera.orthographicSize=32;mapCamera.transform.position=new Vector3(3.7f,55,-24);mapCamera.transform.LookAt(new Vector3(3.7f,1,4));
+        }
+        public void SetFollowView(bool follow)
+        {
+            FollowPerson=follow;followCamera.enabled=follow;SetARView(false);SetFloor(follow?-1:Mathf.Clamp(Mathf.RoundToInt(UserPosition.y/3.3f),0,3));ResetView();
+        }
+        public void Zoom(float multiplier){if(FollowPerson){followCamera.distance=Mathf.Clamp(followCamera.distance*multiplier,1.3f,3.5f);return;}mapCamera.orthographicSize=Mathf.Clamp(mapCamera.orthographicSize*multiplier,4,70);}
+        public void Pan(Vector2 amount){if(FollowPerson)return;var right=mapCamera.transform.right;var forward=Vector3.ProjectOnPlane(mapCamera.transform.up,Vector3.up).normalized;mapCamera.transform.position+=(right*amount.x+forward*amount.y)*mapCamera.orthographicSize*.15f;}
 
         private void Update()
         {
             if(marker==null)return;
+            if(Mode!=NavigationMode.Preview)guide.position=UserPosition;
+            guide.gameObject.SetActive(FollowPerson || Mode==NavigationMode.Preview);
             marker.position=UserPosition+Vector3.up*.18f;
             marker.gameObject.SetActive(Mode!=NavigationMode.Browse&&Mode!=NavigationMode.Preview);
             if(Mode==NavigationMode.Preview&&agent.enabled&&agent.isOnNavMesh)

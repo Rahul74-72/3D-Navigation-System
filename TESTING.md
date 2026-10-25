@@ -1,17 +1,18 @@
 # Testing, QA and Debugging
 
 ## Recorded evidence
-- Unity EditMode suite: **39 passed, 0 failed, 0 skipped**, see qa/editmode.xml.
+- Unity EditMode suite: **42 passed, 0 failed, 0 skipped**, see qa/editmode.xml.
 - Route audit: **29/56 connected** from each room's matching building gate. All 28 Building A destinations connect; Building B ground office connects, other 27 do not. See qa/route-audit.csv.
 - Local scene preparation compiled and executed successfully. See qa/prepare.log.
 - All ordered room pairs audited: **820/3,080 connected**, 2,260 explicitly blocked. This is coverage evidence, not a passing whole-campus acceptance test. See qa/room-pairs.csv.
 - Windows development build succeeded. Built-player smoke verified offline search/building/floor filters and arrival at first-floor Classroom 4, with zero captured runtime errors. See qa/runtime-smoke.txt and qa/player.log.
+- Behind-person camera smoke passed through the staircase and arrival at y=3.31 m. Maximum measured camera height above the person was 1.61 m; the camera remained within 4 m of the person. Perspective follow and optional overhead map switching passed. Stair and arrival screenshots were visually inspected: qa/follow-stairs.png and qa/follow-arrival.png.
 - Screenshots checked at 1440x900, 540x960 and 360x800. Pixel checks confirmed nonblank output and no sampled magenta error-shader pixels. See qa/desktop.png, portrait.png, small-phone.png and pixel-check.json. This is desktop rendering at phone-shaped resolutions, not an Android device test.
 - Android build preflight: **BLOCKED** with `Install Android Build Support, SDK/NDK and OpenJDK through Unity Hub first.` See qa/build-android.log. No APK was produced.
 - Physical AR/campus accuracy: **NOT RUN**, pending requirements. Never interpret these as passed.
 
 ## Automated coverage
-Catalogue uniqueness/schema/finiteness, verified naming, case-insensitive search, unknown and oversized QR rejection, QR encode/decode round trip, phone-to-ground alignment, heading rotation, transform round trip, invalid phone height, tracking jumps, correction budget, recalibration, route length/lookahead, offline command matching, actual staircase intermediate heights, off-map failure.
+Catalogue uniqueness/schema/finiteness, verified naming, case-insensitive search, unknown and oversized QR rejection, QR encode/decode round trip, phone-to-ground alignment, heading rotation, transform round trip, invalid phone height, tracking jumps, correction budget, recalibration, route length/lookahead, offline command matching, actual staircase intermediate heights, off-map failure, camera placement behind the person, floor-relative camera height and pitch-independent follow heading.
 
 ## Required release matrix
 | Test | Pass condition | Status |

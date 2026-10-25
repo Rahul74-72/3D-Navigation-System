@@ -13,7 +13,7 @@ namespace Campus.Navigation
         private Label status, destination, mode, qrPrompt;
         private TextField search;
         private DropdownField floors, buildings, starts;
-        private Button confirm, arButton;
+        private Button confirm, arButton, viewButton;
         private Image cameraPreview;
         private bool portrait;
         private int width, height;
@@ -62,10 +62,12 @@ namespace Campus.Navigation
             Button(mapTools,"Home",()=>app.ResetView()).tooltip="Frame campus";
             Button(mapTools,"<",()=>app.Pan(Vector2.left)).tooltip="Pan left";Button(mapTools,">",()=>app.Pan(Vector2.right)).tooltip="Pan right";
             Button(mapTools,"^",()=>app.Pan(Vector2.up)).tooltip="Pan forward";Button(mapTools,"v",()=>app.Pan(Vector2.down)).tooltip="Pan back";
+            viewButton=Button(mapTools,"Map",()=>app.SetFollowView(!app.FollowPerson));viewButton.tooltip="Switch between follow camera and overhead map";
             mapTools.style.flexDirection=FlexDirection.Row;
             foreach(var child in panel.Children())if(child!=results)child.style.flexShrink=0;
             foreach(var child in mapTools.Children()){child.style.flexGrow=0;child.style.width=36;child.style.height=36;}
             mapTools[2].style.width=54;
+            viewButton.style.width=54;
             foreach(var field in new[]{buildings,floors,starts})
             {
                 var input=field.Q<VisualElement>(className:"unity-base-field__input");if(input!=null){input.style.paddingTop=0;input.style.paddingBottom=0;input.style.alignItems=Align.Center;}
@@ -117,6 +119,8 @@ namespace Campus.Navigation
             cameraPreview.image=app.tracking.FallbackCamera;
             cameraPreview.style.display=app.tracking.FallbackCamera!=null?DisplayStyle.Flex:DisplayStyle.None;
             mapTools.style.display=app.ARView?DisplayStyle.None:DisplayStyle.Flex;
+            viewButton.text=app.FollowPerson?"Map":"Follow";
+            for(int i=3;i<=6;i++)mapTools[i].style.display=app.FollowPerson?DisplayStyle.None:DisplayStyle.Flex;
             starts.SetEnabled(app.Mode!=NavigationMode.Live);
         }
     }

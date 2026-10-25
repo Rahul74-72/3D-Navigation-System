@@ -1,10 +1,10 @@
 # Design
 
 ## Experience
-- First screen is the usable campus map, not a landing page.
+- Default 3D view is a perspective camera behind the person, including during the preview walk. The overhead map is an explicit optional view.
 - Compact destination panel: query, building, floor, results, selection, preview start, Preview/Scan QR/Stop, AR/map toggle and status.
 - Desktop uses a left panel; portrait uses the lower panel with the map above. Results scroll independently.
-- Floor isolation removes higher floors and roofs from the selected floor view. All floors restores the whole model.
+- Floor isolation applies in overhead map view. Follow view renders the whole building, including roofs and higher floors.
 - Navigation green, measured-position blue, neutral architecture. Status always states Preview versus Live versus Checkpoint.
 - Zoom, pan and Home remain explicit controls. Map geometry comes from the supplied GLB, not a decorative illustration.
 

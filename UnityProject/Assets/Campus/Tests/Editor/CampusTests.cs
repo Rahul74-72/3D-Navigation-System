@@ -9,6 +9,9 @@ using ZXing;
 
 public sealed class CampusTests
 {
+    [Test] public void FollowCameraStaysBehindPerson(){var p=CampusFollowCamera.DesiredPosition(Vector3.zero,Vector3.forward,2.4f);Assert.Less(p.z,0);Assert.AreEqual(1.5f,p.y,.001);}
+    [Test] public void FollowCameraUsesPersonsFloor(){var p=CampusFollowCamera.DesiredPosition(new Vector3(0,6.6f,0),Vector3.right,2.4f);Assert.AreEqual(8.1f,p.y,.001);Assert.Less(p.x,0);}
+    [Test] public void FollowCameraIgnoresFacingPitch(){var p=CampusFollowCamera.DesiredPosition(Vector3.zero,new Vector3(0,1,1),2.4f);Assert.AreEqual(1.5f,p.y,.001);Assert.AreEqual(-2.4f,p.z,.001);}
     [Test] public void CatalogueHasStableUniqueIds(){var d=CampusData.Provisional();Assert.IsNull(d.Validate());Assert.AreEqual(56,d.rooms.Length);Assert.AreEqual(10,d.checkpoints.Length);}
     [Test] public void ConfirmedGroundRooms(){var d=CampusData.Provisional();Assert.AreEqual(1,d.Search("Language Lab",0,"A").Length);Assert.AreEqual(1,d.Search("IoT Lab",0,"A").Length);}
     [Test] public void OfficesStackCorrectly(){var d=CampusData.Provisional();Assert.AreEqual(1,d.Search("Environment Lab",1,"A").Length);Assert.AreEqual(1,d.Search("Library",2,"A").Length);}

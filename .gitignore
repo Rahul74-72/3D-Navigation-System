@@ -33,5 +33,11 @@ UnityProject/Assets/Readme.asset*
 UnityProject/Assets/Scenes/SampleScene.unity*
 UnityProject/Assets/Campus_Model_With_Main_Gates.glb*
 SourceAssets/Campus_Model_With_Main_Gates.glb
+UnityProject/Assets/Campus/Data/CampusPanel *.asset*
+UnityProject/ProjectSettings/Packages/com.unity.ai.assistant/
+UnityProject/Assets/Navigation/CampusWalkable.asset*
+UnityProject/Assets/Navigation/Controllers/
+UnityProject/Assets/Navigation/Controllers.meta
+UnityProject/Assets/Navigation/Scripts/CampusRoutePlayback.cs*
 *.blend1
 *.blend2

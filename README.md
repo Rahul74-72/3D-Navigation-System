@@ -9,7 +9,7 @@ The built preview is `Builds/Windows/CampusNavigator.exe`. Keep its companion fo
 
 ## How it works
 1. Search a room or enter `take me to IoT Lab`. Select the building/floor and a result.
-2. Choose a preview starting checkpoint and press **Preview** to inspect the route. This is a simulation, not phone tracking.
+2. Choose a preview starting checkpoint and press **Preview**. The perspective camera follows behind the person, including on stairs. **Map** switches to the optional overhead view; **Follow** returns behind the person. This is a simulation, not phone tracking.
 3. On a phone, **Scan QR** initializes an approved checkpoint. Stand on its surveyed mark, face the arrow and confirm phone height.
 4. On supported devices, ARCore measures motion using camera features plus IMU. The app converts that pose into campus coordinates and replans the route while you walk.
 5. Switch between the 3D map and AR camera. AR shows the route, directional arrows and a guide ahead of your position.
@@ -49,3 +49,6 @@ The built preview is `Builds/Windows/CampusNavigator.exe`. Keep its companion fo
 
 ## Reproduce
 From this folder: `./tools/Verify.ps1 -Action Verify`, `-Action Windows`, or `-Action Android`. Android requires its Unity Hub modules first. Logs and results go to `qa`. Do not distribute Library, Temp, keystores or tokens.
+
+## Repository contents
+Git contains source, tests, required Unity assets, the editable Blender source, QR codes and documentation. Builds, downloaded dependency archives, generated QA logs/screenshots, Unity caches, local MCP settings and duplicate model copies are excluded. Build the Windows preview locally using the command above; it is not downloaded with a clone. Generated QA evidence described in TESTING.md is regenerated locally.
